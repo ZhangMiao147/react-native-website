@@ -7,17 +7,18 @@ title: Using Hermes
   <img width="300" height="300" style="float: right; margin: -30px 4px 0;" src="https://hermesengine.dev/img/logo.svg"/>
 </a>
 
-[Hermes](https://hermesengine.dev) is an open-source JavaScript engine optimized for running React Native apps on Android. For many apps, simply enabling Hermes will result in improved start-up time, decreased memory usage, and smaller app size. At this time Hermes is an **opt-in** React Native feature, and this guide explains how to enable it.
+[Hermes](https://hermesengine.dev) 是一个开源的 JavaScript 引擎，针对在 Android 上运行 React Native 应用进行了优化。 对于许多应用，启用 Hermes 将缩短启动时间、减少内存使用和缩小应用大小。此时，Hermes 就相当于是一个具有 **本地** 特性的 React Native，本文将讲述如何启用它。
 
-First, ensure you're using at least version 0.60.4 of React Native.
+首先，确定你使用的 React Native 最低为 0.60.4。
 
-If you have an existing app based on an earlier version of React Native, you will have to upgrade it first. See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. Make especially sure that all changes to `android/app/build.gradle` have been applied, as detailed by the [React Native upgrade helper](https://react-native-community.github.io/upgrade-helper/?from=0.59.0). After upgrading the app, make sure everything works before trying to switch to Hermes.
 
-> ## Note for Windows users.
+如果现有的应用程序基于 React Native 的早期版本，你需要先去升级它。可以去查看 [升级到新的 React Native 版本](/docs/upgrading) 去执行此操作。尤其要确保对 `android/app/build.gradle` 的更改被应用，细节在 [React Native 升级帮助](https://react-native-community.github.io/upgrade-helper/?from=0.59.0)。升级应用程序之后，在尝试切换到 Hermes 之前，确保应用一切正常。
+
+> ## Windows 使用者注意。
 >
-> Hermes requires [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
+> Hermes 的要求在 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 
-Edit your `android/app/build.gradle` file and make the change illustrated below:
+编辑你的 `android/app/build.gradle` 文件并进行如下修改：
 
 ```diff
   project.ext.react = [
@@ -27,20 +28,20 @@ Edit your `android/app/build.gradle` file and make the change illustrated below:
   ]
 ```
 
-Also, if you're using ProGuard, you will need to add these rule in `proguard-rules.pro` :
+另外，如果你使用的是 ProGuard，你将需要添加以下规则在 `proguard-rules.pro` :
 
 ```
 -keep class com.facebook.hermes.unicode.** { *; }
 -keep class com.facebook.jni.** { *; }
 ```
 
-Next, if you've already built your app at least once, clean the build:
+下一步，如果你已经至少构建了一次你的应用程序，请 clean the build：
 
 ```sh
 $ cd android && ./gradlew clean
 ```
 
-That's it! You should now be able to develop and deploy your app as normal:
+就这样！现在你应该就可以正常开发部署你的应用程序了：
 
 ```sh
 $ npx react-native run-android
